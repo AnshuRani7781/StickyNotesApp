@@ -1,10 +1,25 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef,useEffect } from 'react';
 import Card from './Card';
 import { TiDocumentAdd } from "react-icons/ti";
 import { motion } from "framer-motion";
 import AddCardForm from './AddCardForm';
+import gsap from 'gsap';
+const Foreground = () => { 
+  const ref = useRef(null);
 
-const Foreground = () => {
+  useEffect(() => {
+    // Delay the start of this animation to match the end of the Background animation
+    gsap.fromTo(
+      ref.current,
+      { opacity: 0 },
+      {
+        duration: 1,
+        opacity: 1,
+        ease: 'power2.inOut',
+        delay: 2, // Same as the delay used in the Background animation
+      }
+    );
+  }, []);
   const [data, setData] = useState([
     {
       desc: "<p>Lorem, ipsum dolor sit amet niti expedita magni harum, repellat ",
@@ -28,10 +43,10 @@ const Foreground = () => {
     setFormVisible(!formVisible);
   };
 
-  const ref = useRef(null);
+ 
 
   return (
-    <div ref={ref} className='fixed top-0 left-0 w-full h-screen bg-gray-200/20 z-[3] flex gap-7 flex-wrap'>
+    <div  ref={ref} className='fixed top-0 left-0 w-full h-screen bg-gray-200/20 z-[3] flex gap-7 flex-wrap'>
       {data.map((item, index) => (
         <Card key={index} data={item} constrainTsRef={ref} />
       ))}
