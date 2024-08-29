@@ -22,9 +22,9 @@ const AddCardForm = ({ onAddCard, onClose }) => {
 
   return (
     <div className='fixed top-0 left-0 z-[4] w-full h-full bg-zinc-700/50 flex justify-center items-center'>
-     <motion.button
+      <motion.button
         type='button'
-        className='absolute text-[40px] font-bold top-2 right-2 text-red-600'
+        className='absolute text-[40px] font-bold top-2 right-2 text-zinc-100'
         onClick={onClose}
         whileHover={{ scale: 1.2, rotate: 90, color: '#f00' }} // Change color and scale when hovered
         transition={{ type: 'spring', stiffness: 300 }}
@@ -69,7 +69,9 @@ const AddCardForm = ({ onAddCard, onClose }) => {
             />
           ))}
         </div>
-        <button type='submit' className='p-3 rounded-lg bg-zinc-900 text-white hover:bg-zinc-950 focus:outline-none focus:ring-2 focus:ring-blue-400'>
+        <button 
+          type='submit' 
+          className='p-3 rounded-lg bg-zinc-900 text-white hover:bg-zinc-950 focus:outline-none focus:ring-2 focus:ring-blue-400'>
           Add Card
         </button>
       </form>
