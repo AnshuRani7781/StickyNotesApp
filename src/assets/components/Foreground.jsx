@@ -45,12 +45,38 @@ const Foreground = () => {
     setFormVisible(!formVisible);
   };
   const handleRemoveCard = (index) => {
-    setData(data.filter((_, i) => i !== index));
-  };
+    const cardToRemove = ref.current.children[index];
+
+    // Trigger the exit animation using gsap.fromTo
+    gsap.fromTo(
+        cardToRemove,
+        { opacity: 1, x: 0 }, // Initial state
+        { 
+          duration: 0.6,
+          opacity: 0,
+          scale: .8,
+          x: -100,
+          ease: 'back.in(1.7)',
+            onComplete: () => {
+                // Remove the card from the state after the animation completes
+                setData(data.filter((_, i) => i !== index));
+            }
+        }
+    );
+};
+
   return (
-    <div  ref={ref} className='fixed top-0 left-0 w-full h-screen bg-gray-200/20 z-[3] flex gap-7 flex-wrap'>
+    <div  ref={ref} className='fixed top-0 left-0 w-full h-screen bg-gray-200/20 z-[3] flex gap-7 flex-wrap'> 
+    
       {data.map((item, index) => (
+       <motion.div
+       key={index}
+       initial={{ opacity: 0, scale: 0.8, rotate: -15, y: -100 }}
+       animate={{ opacity: 1, scale: 1, rotate: 0,   y: [0, 7, 0] }}
+       transition={{ duration: 0.7, ease: 'easeOut' }}
+     >
         <Card key={index} data={item}  index={index} onRemoveCard={handleRemoveCard} constrainTsRef={ref} />
+        </motion.div>
       ))
       }
       <div className='absolute left-[92%] top-[85%]'>
