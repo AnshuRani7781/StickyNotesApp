@@ -29,9 +29,13 @@ const Card = ({data, constrainTsRef, onRemoveCard,index}) => {
           <div className='absolute bottom-0 left-0  w-full'>
           <div className='flex items-center justify-between mb-3  px-8  py-3'>
             <h5>{data.date}</h5> 
-            <span className='w-7 h-7 bg-zinc-600 rounded-full flex items-center justify-center' onClick={()=>onRemoveCard(index)}> 
-              {data.close?<IoMdClose />:  <MdOutlineFileDownload  size=".7em" color='#fff'/>}
-            </span>
+            <motion.span 
+              className='w-7 h-7 bg-zinc-600 rounded-full flex items-center justify-center' 
+              onClick={()=>onRemoveCard(index)} 
+              whileHover={{scale:1.2,rotate:90, color: `${bgColor}`}}
+              transition={{ type: 'spring', stiffness: 300 }}> 
+                {data.close?<IoMdClose />:  <MdOutlineFileDownload  size=".7em" color='#fff'/>}
+            </motion.span>
           </div>  
           {
             data.tag.isOpen&&(
